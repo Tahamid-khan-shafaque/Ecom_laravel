@@ -2,7 +2,7 @@
   <div class="container">
     <div class="heading_container heading_center">
       <h2>
-        Latest Products
+        Latest Products In Our Shop
       </h2>
     </div>
     <div class="row">
