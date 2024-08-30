@@ -16,6 +16,7 @@
                 </li> -->
                 <li><a href="{{url('add_product')}}"> <i class="fa fa-plus"></i>Add Product </a></li>
                 <li><a href="{{url('view_product')}}"> <i class="fa fa-plus"></i>View Product </a></li>
+                <li><a href="{{url('view_orders')}}"> <i class="fa fa-plus"></i>View Orders </a></li>
 
                 <li><a href="login.html"> <i class="icon-logout"></i>Login page </a></li>
         </ul><span class="heading">Extras</span>

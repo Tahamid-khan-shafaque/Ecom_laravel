@@ -39,10 +39,10 @@
 
             @auth
 
-            <a href="">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              [{{$count}}]
-            </a>
+            <a href="{{url('mycart')}}">
+    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+    [{{ $count }}]
+</a>
 
             <form method="POST" action="{{ route('logout') }}">
                     @csrf

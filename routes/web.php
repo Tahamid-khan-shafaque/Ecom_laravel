@@ -41,4 +41,11 @@ Route::get('product_search/{id}', [AdminController::class, 'product_search'])->m
 #HomeController
 Route::get('product_details/{id}', [HomeController::class, 'product_details']);
 Route::get('add_cart/{id}', [HomeController::class, 'add_cart'])->middleware(['auth', 'verified']);
-
+Route::get('mycart', [HomeController::class, 'mycart'])->middleware(['auth', 'verified']);
+Route::post('confirm_order', [HomeController::class, 'confirm_order'])->name('confirm_order');
+Route::get('view_orders', [AdminController::class, 'view_orders'])->name('products.store')->middleware(['auth', 'admin']);
+Route::get('on_the_way/{id}', [AdminController::class, 'on_the_way'])->name('products.store')->middleware(['auth', 'admin']);
+Route::get('delivered/{id}', [AdminController::class, 'delivered'])->name('products.store')->middleware(['auth', 'admin']);
+Route::get('print_pdf/{id}', [AdminController::class, 'print_pdf'])->name('products.store')->middleware(['auth', 'admin']);
+#just a test print_pdf
+Route::get('products/store', [HomeController::class, 'store'])->name('products.store')->middleware(['auth', 'verified']);

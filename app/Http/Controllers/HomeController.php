@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Order;
 
 use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
@@ -36,12 +37,12 @@ class HomeController extends Controller
             $count = Cart::where('user_id', $userid)->count(); 
         }else{
             $count = '';
-        } 
+         } 
         return view('home.index',compact('product','count'));
     }
 public function product_details($id){
     $product = Product::find($id);
-    if(Auth::id()){ #if there is any user logged in
+    if(Auth::id()){#if there is any user logged in
         $user =Auth::user();
         $userid = $user->id;
         $count = Cart::where('user_id', $userid)->count(); 
@@ -66,4 +67,47 @@ return redirect()->back();
 
 }
 
+
+public function mycart(){
+    if(Auth::id()){
+        $user =Auth::user();
+        $userid = $user->id;
+        $count = Cart::where('user_id', $userid)->get()->count();
+        $cart = Cart::where('user_id', $userid)->get();
+    }else{
+        $count = '';
+    }
+    return view('home.mycart',compact('count','cart'));
+}
+
+public function confirm_order(Request $request){
+    $name = $request->input('name');
+
+    $order = new Order();
+    $address = $request->address;
+    $phone = $request->phone;
+    $userid = Auth::user()->id;
+    $cart = Cart::where('user_id', $userid)->get();
+    foreach($cart as $cart){
+        $order = new Order;
+        $order->name = $name;
+        $order->rec_address = $address;
+        $order->phone = $phone;
+        $order->user_id = $userid;
+        $order->product_id = $cart->product_id;
+        $order->save();
+    }
+    $cart_remove = Cart::where('user_id', $userid)->get();
+    foreach($cart_remove as $remove){
+        $data = Cart::find($remove->id);
+        $data->delete();
+        
+    }
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Order Placed Successfully');
+    return redirect()->back();
+}
+public function store(Request $request)
+{
+return view('home.create_product');   
+}
 }
