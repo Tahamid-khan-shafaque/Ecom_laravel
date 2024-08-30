@@ -110,4 +110,24 @@ public function store(Request $request)
 {
 return view('home.create_product');   
 }
+public function upload(Request $request)
+{
+    $data = new Product;
+    $data->title = $request->title;
+    $data->description = $request->description;
+    $data->price = $request->price;
+    $data->category = $request->category;
+    $data->quantity = $request->quantity;
+    $image = $request->image;
+    if($image){
+        $imagename = time().'.'.$image->getClientOriginalExtension();
+        $request->image->move('productimage',$imagename);
+        $data->image = $imagename;
+    }
+
+    $data->save();
+
+    return response()->json(['message' => 'Data uploaded successfully']);
+}
+
 }

@@ -47,5 +47,6 @@ Route::get('view_orders', [AdminController::class, 'view_orders'])->name('produc
 Route::get('on_the_way/{id}', [AdminController::class, 'on_the_way'])->name('products.store')->middleware(['auth', 'admin']);
 Route::get('delivered/{id}', [AdminController::class, 'delivered'])->name('products.store')->middleware(['auth', 'admin']);
 Route::get('print_pdf/{id}', [AdminController::class, 'print_pdf'])->name('products.store')->middleware(['auth', 'admin']);
-#just a test print_pdf
+#just a test ajaxupload
 Route::get('products/store', [HomeController::class, 'store'])->name('products.store')->middleware(['auth', 'verified']);
+Route::post('ajaxupload', [HomeController::class, 'upload'])->name('ajax-upload')->middleware(['auth', 'verified']);
